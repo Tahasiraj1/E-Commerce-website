@@ -15,7 +15,6 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useCart } from "@/lib/CartContext";
 import { ArrowLeft } from "lucide-react";
-import { Heart } from "lucide-react";
 import { TiStar } from "react-icons/ti";
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { FaArrowRightLong } from "react-icons/fa6";

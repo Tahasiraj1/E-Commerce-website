@@ -9,7 +9,7 @@ interface RippleProps {
   duration?: number
 }
 
-export function Ripple({ children, color = "#73ffedff", duration = 0.7 }: RippleProps) {
+export function Ripple({ children, color = "#73ffedff", duration = 0.5 }: RippleProps) {
   const [ripples, setRipples] = React.useState<Array<{ x: number; y: number; id: number }>>([])
 
   const addRipple = (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
@@ -44,7 +44,7 @@ export function Ripple({ children, color = "#73ffedff", duration = 0.7 }: Ripple
             height: 0,
             x: ripple.x,
             y: ripple.y,
-            opacity: 0.5,
+            // opacity: 0.5,
           }}
           animate={{
             width: 1000,
