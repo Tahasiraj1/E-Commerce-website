@@ -9,6 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { FloatingNav } from "./Navbar";
+import { FaOpencart } from "react-icons/fa6";
 
 const navItems = [
   { name: "HOME", link: "/" },
@@ -25,6 +26,7 @@ const Header = () => {
           FRAGRANCE<span className="text-[#73ffedff]">WISPHERER</span>
         </h1>
         <div className="flex items-center justify-center animate-in slide-in-from-right-full transition-transform transform duration-1000">
+          <FaOpencart className="w-6 h-6 text-[#73ffedff]" />
           <Sheet>
             <SheetTrigger asChild>
               <Button
