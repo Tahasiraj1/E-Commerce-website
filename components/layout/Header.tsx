@@ -1,3 +1,5 @@
+"use client"
+
 import { RiMenu3Line } from "react-icons/ri";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -10,6 +12,8 @@ import {
 } from "@/components/ui/sheet";
 import { FloatingNav } from "./Navbar";
 import { FaOpencart } from "react-icons/fa6";
+import { Badge } from "../ui/badge";
+import { useCart } from "@/lib/CartContext";
 
 const navItems = [
   { name: "HOME", link: "/" },
@@ -19,6 +23,11 @@ const navItems = [
 ];
 
 const Header = () => {
+
+  const { cart } = useCart();
+
+  const cartItems = cart.length;
+
   return (
     <header className="bg-[#0a1a32ff] font-extrabold w-full">
       <div className="h-20 flex items-center justify-between drop-shadow-2xl px-4 md:px-8">
@@ -26,7 +35,10 @@ const Header = () => {
           FRAGRANCE<span className="text-[#73ffedff]">WISPHERER</span>
         </h1>
         <div className="flex items-center justify-center animate-in slide-in-from-right-full transition-transform transform duration-1000">
-          <FaOpencart className="w-6 h-6 text-[#73ffedff]" />
+          <div>
+            <FaOpencart className="w-6 h-6 text-[#73ffedff] relative" />
+            <Badge className="absolute -top-3 -right-2 w-4 h-4 items-center justify-center rounded-full bg-[#73ffedff] hover:bg-[#73ffedff] text-black">{cartItems}</Badge>
+          </div>
           <Sheet>
             <SheetTrigger asChild>
               <Button
