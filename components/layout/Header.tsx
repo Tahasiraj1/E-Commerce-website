@@ -20,17 +20,16 @@ const navItems = [
 const Header = () => {
   return (
     <header className="bg-[#0a1a32ff] font-extrabold w-full">
-      <div className="h-20 z-10 flex items-center justify-between drop-shadow-2xl px-4 md:px-8">
-        <h1 className="font-bold mt-2 text-white text-2xl animate-in slide-in-from-left-full transition-transform transform duration-1000">
-          FRAGRANCE<span className="text-emerald-500">WISPHERER</span>
+      <div className="h-20 flex items-center justify-between drop-shadow-2xl px-4 md:px-8">
+        <h1 className="font-bold mt-2 text-2xl text-white animate-in slide-in-from-left-full transition-transform transform duration-1000">
+          FRAGRANCE<span className="text-[#73ffedff]">WISPHERER</span>
         </h1>
         <div className="flex items-center justify-center animate-in slide-in-from-right-full transition-transform transform duration-1000">
           <Sheet>
             <SheetTrigger asChild>
               <Button
-                variant="outline"
                 size="icon"
-                className="md:hidden rounded-full"
+                className="md:hidden text-[#73ffedff] rounded-full bg-transparent/40 hover:bg-transparent"
               >
                 <RiMenu3Line className="w-6 h-6" />
                 <span className="sr-only">Open menu</span>

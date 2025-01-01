@@ -21,36 +21,37 @@ interface Product {
 export default function Scents() {
   const [scents, setScents] = useState<Product[]>([]);
 
-  useEffect(() => {
-      const fetchProducts = async () => {
-          const query = `*[_type == "scents"]{
-          id,
-          name,
-          quantity,
-          price,
-          image,
-          ratings,
-          tags,
-          description,
-          }`;
 
-          const products = await client.fetch(query);
-          setScents(products);
-      };
-      fetchProducts();
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const query = `*[_type == "scents"]{
+        id,
+        name,
+        quantity,
+        price,
+        image,
+        ratings,
+        tags,
+        description,
+      }`;
+
+      const products = await client.fetch(query);
+      setScents(products);
+    };
+    fetchProducts();
   }, []);
 
   return (
-    <div className="bg-[#0a1a32ff] gap-2 grid grid-cols-2 md:grid-cols-4 px-4 md:px-10">
+    <div className="bg-[#0a1a32ff] gap-4 grid grid-cols-2 md:grid-cols-4 px-4 md:px-6">
       {scents.map((scent, index) => (
-        <Card key={index} className="border-[#0a1a32ff] bg-transparent/40 text-white">
-          <CardContent className="overflow-visible p-0">
+        <Card key={index} className="border-[#0a1a32ff] bg-transparent/40 text-white shadow-cyan-400">
+          <CardContent className="p-2">
             <Image
               alt={scent.name}
-              className="w-full rounded-t-xl object-cover  "
+              className="w-full rounded-xl object-cover "
               src={urlFor(scent.image[0]).url()}
-              width={200}
-              height={200}
+              width={600}
+              height={600}
             />
           </CardContent>
           <CardFooter className="text-small mt-4 justify-between rounded-b-xl">
