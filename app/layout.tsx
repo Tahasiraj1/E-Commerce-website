@@ -5,6 +5,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartProvider from "@/lib/CartContext";
 import { Toaster } from "@/components/ui/toaster";
+import { OrderProvider } from "@/lib/OrderContext";
+import ConfettiDisplay from "@/components/layout/ConfettiDisplay";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,12 +34,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <CartProvider>
-          <Header />
+        <OrderProvider>
+          <CartProvider>
+            <Header />
+            <ConfettiDisplay />
             {children}
             <Toaster />
-          <Footer />
-        </CartProvider>
+            <Footer />
+          </CartProvider>
+        </OrderProvider>
       </body>
     </html>
   );
