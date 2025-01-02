@@ -101,44 +101,45 @@ const Header = () => {
               <SheetHeader>
                 <SheetTitle className="sr-only">Shopping Cart</SheetTitle>
               </SheetHeader>
-              {cartItems === 0 && (
-                <p className="text-center text-lg">Your cart is empty</p>
-              )}
-              <ul className="flex flex-col">
-                <ScrollArea className="h-[calc(100vh-80px)] pr-4 w-full">
-                  {cart.map((item, index) => (
-                    <li className="mb-4" key={index}>
-                      <div className="relative flex items-center gap-4 bg-[#0d2346] p-2 rounded-xl">
-                        <button
-                          className="absolute top-0 right-0 group"
-                          onClick={() => handleRemoveFromCart(item)}
-                        >
-                          <X className="w-6 h-6 text-[#73ffedff] group-active:rotate-180 duration-300 transition-transform transform " />
-                        </button>
-                        <Image
-                          src={urlFor(item.image).url()}
-                          alt={item.name}
-                          width={100}
-                          height={100}
-                          className="rounded-xl"
-                        />
-                        <div className="flex flex-col text-white">
-                          <span className="text-lg">{item.name}</span>
-                          <span className="text-lg">{item.price}</span>
+              {cartItems === 0 ? (
+                <p className="text-center text-lg text-cyan-300">Your cart is empty</p>
+              ) : (
+                <ul className="flex flex-col">
+                  <ScrollArea className="h-[calc(100vh-80px)] pr-4 w-full">
+                    {cart.map((item, index) => (
+                      <li className="mb-4" key={index}>
+                        <div className="relative flex items-center gap-4 bg-[#0d2346] p-2 rounded-xl">
+                          <button
+                            className="absolute top-0 right-0 group"
+                            onClick={() => handleRemoveFromCart(item)}
+                          >
+                            <X className="w-6 h-6 text-[#73ffedff] group-active:rotate-180 duration-300 transition-transform transform " />
+                          </button>
+                          <Image
+                            src={urlFor(item.image).url()}
+                            alt={item.name}
+                            width={100}
+                            height={100}
+                            className="rounded-xl"
+                          />
+                          <div className="flex flex-col text-white">
+                            <span className="text-lg">{item.name}</span>
+                            <span className="text-lg">{item.price}</span>
+                          </div>
                         </div>
-                      </div>
-                    </li>
-                  ))}
-                  <Button
-                    variant="expandIcon"
-                    className="border text-lg rounded-full font-semibold border-cyan-300 text-white w-full active:scale-95 duration-300 transition-transform transform drop-shadow-xl"
-                    onClick={handleClearCart}
-                  >
-                    CLEAR CART
-                  </Button>
-                  <ScrollBar orientation="vertical" />
-                </ScrollArea>
-              </ul>
+                      </li>
+                    ))}
+                    <Button
+                      variant="expandIcon"
+                      className="border text-lg rounded-full font-semibold border-cyan-300 text-white w-full active:scale-95 duration-300 transition-transform transform drop-shadow-xl"
+                      onClick={handleClearCart}
+                    >
+                      CLEAR CART
+                    </Button>
+                    <ScrollBar orientation="vertical" />
+                  </ScrollArea>
+                </ul>
+              )}
             </SheetContent>
           </Sheet>
           <Sheet>
