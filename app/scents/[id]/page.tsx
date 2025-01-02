@@ -17,12 +17,13 @@ import { useCart } from "@/lib/CartContext";
 import { ArrowLeft } from "lucide-react";
 import { TiStar } from "react-icons/ti";
 import { RiShoppingCart2Line } from "react-icons/ri";
-import { FaArrowRightLong } from "react-icons/fa6";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { Image as SanityImage } from "@sanity/types";
+import { Ripple } from "@/components/ui/Ripple";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 interface Product {
   id: string;
@@ -31,8 +32,6 @@ interface Product {
   price: number;
   image: SanityImage[];
   ratings: string;
-  sizes: string[];
-  colors: string[];
   tags: string[];
   description: string;
 }
@@ -79,7 +78,7 @@ const ProductDetails = () => {
         title: "Success!",
         description: "Item is added to cart.",
         duration: 5000,
-      });      
+      });
     } else {
       toast({
         title: "Error",
@@ -113,7 +112,7 @@ const ProductDetails = () => {
 
   return (
     <div className=" bg-[#0a1a32ff] text-white">
-      <div className="flex lg:flex-row flex-col pt-10 pb-20 px-10">
+      <div className="flex lg:flex-row flex-col pt-10 pb-20 px-4 lg:px-10">
         <ScrollArea className="drop-shadow-lg rounded-2xl">
           <div className="flex space-x-2">
             {product.image.map((image, index: number) => (
@@ -155,15 +154,14 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <h1 className="py-2 text-3xl lg:text-4xl font-bold px-5 lg:px-40">
-        You May Also{" "}
-        <span className="relative">
-          Like
-        </span>
-      </h1>
+      <div className="relative">
+        <h1 className="py-2 text-3xl lg:text-4xl font-bold px-5">
+          You May Also Like
+        </h1>
+      </div>
       <div className="w-full px-5 pt-10 flex justify-center">
         <Carousel
-          className="w-full max-w-[1000px] px-5"
+          className="w-full px-5"
           opts={{
             loop: true,
           }}
@@ -172,47 +170,40 @@ const ProductDetails = () => {
           onMouseLeave={plugin.current.reset}
         >
           <CarouselContent>
-            {scents.slice(0, 6).map((product: Product, index: number) => (
+            {scents.slice(0, 6).map((scent: Product, index: number) => (
               <CarouselItem
                 key={index}
-                className="flex flex-col md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                className="flex flex-col w-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
               >
-                <Image
-                  src={urlFor(product.image[0]).url()}
-                  alt="product"
-                  width={1000}
-                  height={1000}
-                  className="w-[300px] h-[400px] relative rounded-2xl"
-                />
-                <div className="flex items-center justify-between">
-                  <h2>{product.name}</h2>
-                  <p>PKR {product.price}</p>
-                </div>
-                <div className="flex justify-between items-center mt-4 mb-8">
-                  <Link
-                    key={product.id}
-                    href={`/products/${product.id}`}
-                    passHref
-                  >
-                    <Button
-                      variant="expandIcon"
-                      Icon={FaArrowRightLong}
-                      iconPlacement="right"
-                      className="items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-xl rounded-full text-black"
-                    >
-                      Order Now
-                    </Button>
+                <Card
+                  key={index}
+                  className="border-[#0a1a32ff] w-[300px] bg-transparent/40 text-white shadow-cyan-400"
+                >
+                  <Link href={`/scents/${scent.id}`}>
+                    <Ripple>
+                      <CardContent className="p-2">
+                        <Image
+                          alt={scent.name}
+                          className="w-full max-w-[300px] max-h-[400px] rounded-xl object-cover  "
+                          src={urlFor(scent.image[0]).url()}
+                          width={1000}
+                          height={1000}
+                        />
+                      </CardContent>
+                      <CardFooter className="text-small mt-4 justify-between rounded-b-xl">
+                        <b>{scent.name}</b>
+                        <p className="text-default-500">{scent.price}</p>
+                      </CardFooter>
+                    </Ripple>
                   </Link>
-                  <div className="flex">
-                    <TiStar fill="orange" className="w-6 h-6 mr-2" />{" "}
-                    {product.ratings}
-                  </div>
-                </div>
+                </Card>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="absolute top-44 left-0 rounded-lg active:scale-95 transition-transform transform duration-300" />
-          <CarouselNext className="absolute top-44 right-0 rounded-lg active:scale-95 transition-transform transform duration-300" />
+          <div className="absolute top-0 right-0 flex items-center justify-between">
+            <CarouselPrevious className="text-cyan-300 border-cyan-300 bg-transparent/40 rounded-full active:scale-95 transition-transform transform duration-300" />
+            <CarouselNext className="text-cyan-300 border-cyan-300 bg-transparent/40 rounded-full active:scale-95 transition-transform transform duration-300" />
+          </div>
         </Carousel>
       </div>
     </div>

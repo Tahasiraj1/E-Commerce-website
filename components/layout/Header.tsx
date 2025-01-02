@@ -21,6 +21,7 @@ import { X } from "lucide-react";
 import { client } from "@/sanity/lib/client";
 import { Image as SanityImage } from "@sanity/types";
 import { CartItem } from "@/lib/CartContext";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 const navItems = [
   { name: "HOME", link: "/" },
@@ -41,7 +42,7 @@ interface Product {
 }
 
 const Header = () => {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, clearCart } = useCart();
   const [scents, setScents] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -70,19 +71,24 @@ const Header = () => {
     }
   };
 
+  const handleClearCart = () => {
+    clearCart();
+  };
+
   const cartItems = cart.length;
 
   return (
     <header className="bg-[#0a1a32ff] font-extrabold w-full">
-      <div className="h-20 flex items-center justify-between drop-shadow-2xl px-4 md:px-8">
-        <h1 className="font-bold mt-2 text-2xl text-white animate-in slide-in-from-left-full transition-transform transform duration-1000">
+      <div className="h-20 flex items-center justify-between drop-shadow-2xl px-2 md:px-8">
+        <h1 className="font-bold mt-2 text-md text-white animate-in slide-in-from-left-full transition-transform transform duration-1000">
           FRAGRANCE<span className="text-[#73ffedff]">WISPHERER</span>
         </h1>
+        <FloatingNav navItems={navItems} className="hidden lg:block" />
         <div className="flex items-center justify-center animate-in slide-in-from-right-full transition-transform transform duration-1000">
           <Sheet>
-            <SheetTrigger asChild>
+            <SheetTrigger asChild className="relative mr-4 lg:mr-0">
               <button>
-                <FaOpencart className="w-6 h-6 text-[#73ffedff] relative" />
+                <FaOpencart className="relative w-6 h-6 text-[#73ffedff]" />
                 <Badge className="absolute -top-3 -right-2 w-4 h-4 items-center justify-center rounded-full bg-[#73ffedff] hover:bg-[#73ffedff] animate-pulse text-black">
                   {cartItems}
                 </Badge>
@@ -90,7 +96,7 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="pt-20 border-r-0 border-t-0 border-b-0 border-l-2 border-cyan-400 bg-[#0a1a32ff]"
+              className="pt-16 border-r-0 border-t-0 border-b-0 border-l-2 border-cyan-400 bg-[#0a1a32ff]"
             >
               <SheetHeader>
                 <SheetTitle className="sr-only">Shopping Cart</SheetTitle>
@@ -98,16 +104,16 @@ const Header = () => {
               {cartItems === 0 && (
                 <p className="text-center text-lg">Your cart is empty</p>
               )}
-              <nav>
-                <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col">
+                <ScrollArea className="h-[calc(100vh-80px)] pr-4 w-full">
                   {cart.map((item, index) => (
-                    <li key={index}>
+                    <li className="mb-4" key={index}>
                       <div className="relative flex items-center gap-4 bg-[#0d2346] p-2 rounded-xl">
                         <button
                           className="absolute top-0 right-0 group"
                           onClick={() => handleRemoveFromCart(item)}
                         >
-                            <X className="w-6 h-6 text-[#73ffedff] group-active:rotate-180 duration-300 transition-transform transform " />
+                          <X className="w-6 h-6 text-[#73ffedff] group-active:rotate-180 duration-300 transition-transform transform " />
                         </button>
                         <Image
                           src={urlFor(item.image).url()}
@@ -123,15 +129,23 @@ const Header = () => {
                       </div>
                     </li>
                   ))}
-                </ul>
-              </nav>
+                  <Button
+                    variant="expandIcon"
+                    className="border text-lg rounded-full font-semibold border-cyan-300 text-white w-full active:scale-95 duration-300 transition-transform transform drop-shadow-xl"
+                    onClick={handleClearCart}
+                  >
+                    CLEAR CART
+                  </Button>
+                  <ScrollBar orientation="vertical" />
+                </ScrollArea>
+              </ul>
             </SheetContent>
           </Sheet>
           <Sheet>
             <SheetTrigger asChild>
               <Button
                 size="icon"
-                className="md:hidden text-[#73ffedff] rounded-full bg-transparent/40 hover:bg-transparent"
+                className="lg:hidden text-[#73ffedff] rounded-full bg-transparent/40 hover:bg-transparent"
               >
                 <RiMenu3Line className="w-6 h-6" />
                 <span className="sr-only">Open menu</span>
@@ -163,7 +177,6 @@ const Header = () => {
           </Sheet>
         </div>
       </div>
-      <FloatingNav navItems={navItems} className="hidden md:block" />
     </header>
   );
 };

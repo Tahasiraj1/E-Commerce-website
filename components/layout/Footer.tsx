@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className=" bg-[#0a1a32ff] text-white">
       <div className="container mx-auto px-4 py-12">
-        <div className="text-6xl uppercase font-extrabold text-center mb-12 text-[#73ffedff]">
+        <div className="text-xl lg:text-6xl uppercase font-extrabold text-center mb-12 text-[#73ffedff]">
             fragrancewhispherer
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
