@@ -83,8 +83,8 @@ const Header = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 2 * 2,
-        delayChildren: 2,
+        staggerChildren: 2,
+        delayChildren: 2 * 2,
         duration: 1,
       },
     },
@@ -93,7 +93,7 @@ const Header = () => {
   const itemVariants = {
     hidden: { opacity: 0, x: 20 },
     visible: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: 100 },
+    exit: { opacity: 0, x: 100, transition: { duration: 0.2 } },
   };
 
   return (
@@ -128,6 +128,7 @@ const Header = () => {
                 <ScrollArea className="h-[calc(100vh-80px)] pr-4 w-full">
                   <motion.ul
                     variants={containerVariants}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     initial="hidden"
                     whileInView="visible"
                     className="flex flex-col"

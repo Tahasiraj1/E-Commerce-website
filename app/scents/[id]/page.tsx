@@ -78,8 +78,9 @@ const ProductDetails = () => {
       });
       setQuantity(1);
       toast({
-        title: "Success!",
-        description: "Item is added to cart.",
+        image: urlFor(product.image[0]).url(),
+        title: `${product.name} added to cart.`,
+        description: `${product.price} x ${quantity}`,
         duration: 5000,
       });
     } else {
