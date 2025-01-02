@@ -76,6 +76,7 @@ const ProductDetails = () => {
         price: product?.price as number,
         quantity: quantity,
       });
+      setQuantity(1);
       toast({
         title: "Success!",
         description: "Item is added to cart.",
@@ -109,7 +110,7 @@ const ProductDetails = () => {
 
   if (!product)
     return (
-      <div className="h-screen items-center flex flex-col gap-2 justify-center">
+      <div className="h-screen bg-[#0a1a32ff] items-center flex flex-col gap-2 justify-center">
         <p className="font-bold text-2xl text-red-500">Product not found</p>
         <Link href="/scents">
           <Button
@@ -245,3 +246,27 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
+
+{/* <p>{product.description}</p>
+{cart.map((item) => (
+  <div className="flex items-center w-fit pl-2 mt-6 rounded-full">
+    <span className="mr-2">Qty: </span>
+    <Button
+      className="bg-cyan-100 rounded-l-full text-black hover:bg-cyan-200 active:scale-110 transition-transform transform duration-300"
+      onClick={() => decrementQuantity(item)}
+    >
+      <Minus size={15} />
+    </Button>
+    <p className="mx-2 text-cyan-300">
+      <strong>{item.quantity}</strong>
+    </p>
+    <Button
+      className="bg-cyan-100 rounded-r-full text-black hover:bg-cyan-200 active:scale-110 transition-transform transform duration-300"
+      onClick={() => incrementQuantity(item)}
+    >
+      <Plus size={15} />
+    </Button>
+  </div>
+))}
+<div className="flex items-center justify-center mt-9 gap-2"> */}

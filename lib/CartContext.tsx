@@ -23,8 +23,8 @@ interface CartContextType {
   addToCart: (item: CartItem) => void;
   removeFromCart: (item: CartItem) => void;
   clearCart: () => void;
-  incrementQuantity: (item: CartItem) => void;
-  decrementQuantity: (item: CartItem) => void;
+  incrementQuantity: (itemId: string) => void;
+  decrementQuantity: (itemId: string) => void;
 }
 
 interface Product {
@@ -74,51 +74,48 @@ export default function CartProvider({ children }: { children: ReactNode }) {
 
   const getProductStock = (id: string) => {
     const product = scents.find((p: Product) => p.id === id);
-    return product ? product.quantity : 0; // Return 0 if the product is not found
+    return product ? product.quantity : 0;
   };
 
   const addToCart = (product: CartItem) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
-
       const productStock = getProductStock(product.id);
 
       if (existingProduct) {
         return prevCart.map((item) =>
-          item.id === product.id && item.quantity < productStock
-            ? { ...item, quantity: item.quantity + 1 }
+          item.id === product.id
+            ? { ...item, quantity: Math.min(item.quantity + product.quantity, productStock) }
             : item
         );
       } else {
-        return [...prevCart, { ...product, quantity: 1 }];
+        return [...prevCart, { ...product, quantity: Math.min(product.quantity, productStock) }];
       }
     });
   };
 
   const removeFromCart = (product: CartItem) => {
-    setCart((prevCart) => prevCart.filter((item) => !(item.id === product.id)));
+    setCart((prevCart) => prevCart.filter((item) => item.id !== product.id));
   };
 
   const clearCart = () => {
     setCart([]);
   };
 
-  const incrementQuantity = (product: CartItem) => {
-    const productStock = getProductStock(product.id);
-
+  const incrementQuantity = (itemId: string) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === product.id && item.quantity < productStock
-          ? { ...item, quantity: item.quantity + 1 }
+        item.id === itemId
+          ? { ...item, quantity: Math.min(item.quantity + 1, getProductStock(item.id)) }
           : item
       )
     );
   };
 
-  const decrementQuantity = (product: CartItem) => {
+  const decrementQuantity = (itemId: string) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === product.id && item.quantity > 1
+        item.id === itemId && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item
       )
