@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useSheet } from "@/hooks/useSheet";
+// import { useSheet } from "@/hooks/useSheet";
 import { FloatingNav } from "./Navbar";
 import { FaOpencart } from "react-icons/fa6";
 import { Badge } from "../ui/badge";
@@ -47,7 +47,7 @@ interface Product {
 const Header = () => {
   const { cart, removeFromCart, clearCart } = useCart();
   const { setOrderPlaced } = useOrder();
-  const { isOpen, onOpen, onClose } = useSheet();
+  // const { isOpen, onOpen, onClose } = useSheet();
   const [scents, setScents] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -113,7 +113,7 @@ const Header = () => {
         </h1>
         <FloatingNav navItems={navItems} className="hidden lg:block" />
         <div className="flex items-center justify-center animate-in slide-in-from-right-full transition-transform transform duration-1000">
-          <Sheet open={isOpen} onOpenChange={onOpen}>
+          <Sheet>
             <SheetTrigger asChild className="relative mr-4 lg:mr-0">
               <button>
                 <FaOpencart className="relative w-6 h-6 text-[#73ffedff]" />
@@ -181,15 +181,15 @@ const Header = () => {
                   >
                     CLEAR CART
                   </Button>
-                  <div onClick={handlePlaceOrder}>
+                  {/* <div> */}
                     <Button
                       variant="expandIcon"
                       className="border mt-2 text-lg rounded-full font-semibold border-cyan-300 text-white w-full active:scale-95 duration-300 transition-transform transform drop-shadow-xl"
-                      onClick={onClose}
+                      onClick={handlePlaceOrder}
                     >
                       PLACE ORDER
                     </Button>
-                  </div>
+                  {/* </div> */}
                   <ScrollBar orientation="vertical" />
                 </ScrollArea>
               )}
