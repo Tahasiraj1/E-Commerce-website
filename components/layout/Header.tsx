@@ -22,6 +22,7 @@ import { client } from "@/sanity/lib/client";
 import { Image as SanityImage } from "@sanity/types";
 import { CartItem } from "@/lib/CartContext";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { motion, AnimatePresence, delay } from "framer-motion";
 
 const navItems = [
   { name: "HOME", link: "/" },
@@ -77,10 +78,28 @@ const Header = () => {
 
   const cartItems = cart.length;
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 2 * 2,
+        delayChildren: 2,
+        duration: 1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: 100 },
+  };
+
   return (
     <header className="bg-[#0a1a32ff] font-extrabold w-full">
       <div className="h-20 flex items-center justify-between drop-shadow-2xl px-2 md:px-8">
-        <h1 className="font-bold mt-2 text-md text-white animate-in slide-in-from-left-full transition-transform transform duration-1000">
+        <h1 className="font-bold mt-2 text-md md:text-2xl text-white animate-in slide-in-from-left-full transition-transform transform duration-1000">
           FRAGRANCE<span className="text-[#73ffedff]">WISPHERER</span>
         </h1>
         <FloatingNav navItems={navItems} className="hidden lg:block" />
@@ -102,43 +121,58 @@ const Header = () => {
                 <SheetTitle className="sr-only">Shopping Cart</SheetTitle>
               </SheetHeader>
               {cartItems === 0 ? (
-                <p className="text-center text-lg text-cyan-300">Your cart is empty</p>
+                <p className="text-center text-lg text-cyan-300">
+                  Your cart is empty
+                </p>
               ) : (
-                <ul className="flex flex-col">
-                  <ScrollArea className="h-[calc(100vh-80px)] pr-4 w-full">
-                    {cart.map((item, index) => (
-                      <li className="mb-4" key={index}>
-                        <div className="relative flex items-center gap-4 bg-[#0d2346] p-2 rounded-xl">
-                          <button
-                            className="absolute top-0 right-0 group"
-                            onClick={() => handleRemoveFromCart(item)}
-                          >
-                            <X className="w-6 h-6 text-[#73ffedff] group-active:rotate-180 duration-300 transition-transform transform " />
-                          </button>
-                          <Image
-                            src={urlFor(item.image).url()}
-                            alt={item.name}
-                            width={100}
-                            height={100}
-                            className="rounded-xl"
-                          />
-                          <div className="flex flex-col text-white">
-                            <span className="text-lg">{item.name}</span>
-                            <span className="text-lg">{item.price}</span>
+                <ScrollArea className="h-[calc(100vh-80px)] pr-4 w-full">
+                  <motion.ul
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    className="flex flex-col"
+                  >
+                    <AnimatePresence>
+                      {cart.map((item) => (
+                        <motion.li
+                          key={item.id}
+                          variants={itemVariants}
+                          exit="exit"
+                          className="mb-4"
+                        >
+                          <div className="relative flex items-center gap-4 bg-[#0d2346] p-2 rounded-xl">
+                            <button
+                              className="absolute top-0 right-0 group"
+                              onClick={() => handleRemoveFromCart(item)}
+                            >
+                              <X className="w-6 h-6 text-[#73ffedff] group-active:-rotate-180 group-hover:rotate-180 duration-300 transition-transform transform " />
+                            </button>
+                            <Image
+                              src={urlFor(item.image).url()}
+                              alt={item.name}
+                              width={100}
+                              height={100}
+                              className="rounded-xl"
+                            />
+                            <div className="flex flex-col text-white">
+                              <span className="text-lg">{item.name}</span>
+                              <span className="text-lg">{item.price}</span>
+                              <span className="text-lg">{item.quantity}</span>
+                            </div>
                           </div>
-                        </div>
-                      </li>
-                    ))}
-                    <Button
-                      variant="expandIcon"
-                      className="border text-lg rounded-full font-semibold border-cyan-300 text-white w-full active:scale-95 duration-300 transition-transform transform drop-shadow-xl"
-                      onClick={handleClearCart}
-                    >
-                      CLEAR CART
-                    </Button>
-                    <ScrollBar orientation="vertical" />
-                  </ScrollArea>
-                </ul>
+                        </motion.li>
+                      ))}
+                    </AnimatePresence>
+                  </motion.ul>
+                  <Button
+                    variant="expandIcon"
+                    className="border text-lg rounded-full font-semibold border-cyan-300 text-white w-full active:scale-95 duration-300 transition-transform transform drop-shadow-xl"
+                    onClick={handleClearCart}
+                  >
+                    CLEAR CART
+                  </Button>
+                  <ScrollBar orientation="vertical" />
+                </ScrollArea>
               )}
             </SheetContent>
           </Sheet>

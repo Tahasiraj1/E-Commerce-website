@@ -24,6 +24,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { Image as SanityImage } from "@sanity/types";
 import { Ripple } from "@/components/ui/Ripple";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Plus, Minus } from "lucide-react";
 
 interface Product {
   id: string;
@@ -37,7 +38,11 @@ interface Product {
 }
 
 const ProductDetails = () => {
+  const { toast } = useToast();
+  const { addToCart } = useCart();
   const [scents, setScents] = useState<Product[]>([]);
+  const [quantity, setQuantity] = useState(1);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -62,9 +67,6 @@ const ProductDetails = () => {
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
 
-  const { toast } = useToast();
-  const { addToCart } = useCart();
-
   const handleAddToCart = () => {
     if (product) {
       addToCart({
@@ -72,7 +74,7 @@ const ProductDetails = () => {
         image: product?.image?.[0],
         name: product?.name as string,
         price: product?.price as number,
-        quantity: 1,
+        quantity: quantity,
       });
       toast({
         title: "Success!",
@@ -89,6 +91,18 @@ const ProductDetails = () => {
     }
   };
 
+  const handleIncrement = () => {
+    if (quantity < product!.quantity) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   const params = useParams();
   const productId = params.id;
   const product = scents.find((product) => product.id === productId);
@@ -97,7 +111,7 @@ const ProductDetails = () => {
     return (
       <div className="h-screen items-center flex flex-col gap-2 justify-center">
         <p className="font-bold text-2xl text-red-500">Product not found</p>
-        <Link href="/products">
+        <Link href="/scents">
           <Button
             variant="expandIcon"
             iconPlacement="left"
@@ -135,7 +149,25 @@ const ProductDetails = () => {
             <TiStar fill="orange" className="w-6 h-6 mr-2" /> {product.ratings}
           </span>
           <p>{product.description}</p>
-          <div className="flex items-center justify-center mt-10 gap-2">
+          <div className="flex items-center w-fit pl-2 mt-6 rounded-full">
+            <span className="mr-2">Qty: </span>
+            <Button
+              className="bg-cyan-100 rounded-l-full text-black hover:bg-cyan-200 active:scale-110 transition-transform transform duration-300"
+              onClick={handleDecrement}
+            >
+              <Minus size={15} />
+            </Button>
+            <p className="mx-2 text-cyan-300">
+              <strong>{quantity}</strong>
+            </p>
+            <Button
+              className="bg-cyan-100 rounded-r-full text-black hover:bg-cyan-200 active:scale-110 transition-transform transform duration-300"
+              onClick={handleIncrement}
+            >
+              <Plus size={15} />
+            </Button>
+          </div>
+          <div className="flex items-center justify-center mt-9 gap-2">
             {product.quantity > 0 ? (
               <Button
                 variant="expandIcon"
