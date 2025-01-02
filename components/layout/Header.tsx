@@ -1,5 +1,6 @@
-"use client"
+"use client";
 
+import React, { useEffect, useState } from "react";
 import { RiMenu3Line } from "react-icons/ri";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,12 @@ import { FloatingNav } from "./Navbar";
 import { FaOpencart } from "react-icons/fa6";
 import { Badge } from "../ui/badge";
 import { useCart } from "@/lib/CartContext";
+import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
+import { X } from "lucide-react";
+import { client } from "@/sanity/lib/client";
+import { Image as SanityImage } from "@sanity/types";
+import { CartItem } from "@/lib/CartContext";
 
 const navItems = [
   { name: "HOME", link: "/" },
@@ -22,9 +29,46 @@ const navItems = [
   { name: "CONTACT", link: "/contact" },
 ];
 
-const Header = () => {
+interface Product {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+  image: SanityImage;
+  ratings: string;
+  tags: string[];
+  description: string;
+}
 
-  const { cart } = useCart();
+const Header = () => {
+  const { cart, removeFromCart } = useCart();
+  const [scents, setScents] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const query = `*[_type == "scents"]{
+          id,
+          name,
+          quantity,
+          price,
+          image,
+          ratings,
+          tags,
+          description,
+        }`;
+
+      const products = await client.fetch(query);
+      setScents(products);
+    };
+    fetchProducts();
+  }, []);
+
+  const handleRemoveFromCart = (item: CartItem) => {
+    const itemToRemove = scents.find((scent) => scent.id === item.id);
+    if (itemToRemove) {
+      removeFromCart(itemToRemove);
+    }
+  };
 
   const cartItems = cart.length;
 
@@ -35,10 +79,54 @@ const Header = () => {
           FRAGRANCE<span className="text-[#73ffedff]">WISPHERER</span>
         </h1>
         <div className="flex items-center justify-center animate-in slide-in-from-right-full transition-transform transform duration-1000">
-          <div>
-            <FaOpencart className="w-6 h-6 text-[#73ffedff] relative" />
-            <Badge className="absolute -top-3 -right-2 w-4 h-4 items-center justify-center rounded-full bg-[#73ffedff] hover:bg-[#73ffedff] text-black">{cartItems}</Badge>
-          </div>
+          <Sheet>
+            <SheetTrigger asChild>
+              <button>
+                <FaOpencart className="w-6 h-6 text-[#73ffedff] relative" />
+                <Badge className="absolute -top-3 -right-2 w-4 h-4 items-center justify-center rounded-full bg-[#73ffedff] hover:bg-[#73ffedff] animate-pulse text-black">
+                  {cartItems}
+                </Badge>
+              </button>
+            </SheetTrigger>
+            <SheetContent
+              side="right"
+              className="pt-20 border-r-0 border-t-0 border-b-0 border-l-2 border-cyan-400 bg-[#0a1a32ff]"
+            >
+              <SheetHeader>
+                <SheetTitle className="sr-only">Shopping Cart</SheetTitle>
+              </SheetHeader>
+              {cartItems === 0 && (
+                <p className="text-center text-lg">Your cart is empty</p>
+              )}
+              <nav>
+                <ul className="flex flex-col gap-4">
+                  {cart.map((item, index) => (
+                    <li key={index}>
+                      <div className="relative flex items-center gap-4 bg-[#0d2346] p-2 rounded-xl">
+                        <button
+                          className="absolute top-0 right-0 group"
+                          onClick={() => handleRemoveFromCart(item)}
+                        >
+                            <X className="w-6 h-6 text-[#73ffedff] group-active:rotate-180 duration-300 transition-transform transform " />
+                        </button>
+                        <Image
+                          src={urlFor(item.image).url()}
+                          alt={item.name}
+                          width={100}
+                          height={100}
+                          className="rounded-xl"
+                        />
+                        <div className="flex flex-col text-white">
+                          <span className="text-lg">{item.name}</span>
+                          <span className="text-lg">{item.price}</span>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </SheetContent>
+          </Sheet>
           <Sheet>
             <SheetTrigger asChild>
               <Button
@@ -51,7 +139,7 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="pt-20 border-r-0 border-t-0 border-b-0 border-l-2 border-emerald-600"
+              className="pt-20 border-r-0 border-t-0 border-b-0 border-l-2 border-cyan-400 bg-[#0a1a32ff]"
             >
               <SheetHeader>
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
@@ -81,4 +169,3 @@ const Header = () => {
 };
 
 export default Header;
-

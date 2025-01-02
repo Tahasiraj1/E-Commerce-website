@@ -34,8 +34,6 @@ interface Product {
   price: number;
   images: { asset: { url: string } }[];
   ratings: string;
-  sizes: string[];
-  colors: string[];
   tags: string[];
   description: string;
 }
@@ -81,17 +79,13 @@ export default function CartProvider({ children }: { children: ReactNode }) {
 
   const addToCart = (product: CartItem) => {
     setCart((prevCart) => {
-      const existingProduct = prevCart.find(
-        (item) =>
-          item.id === product.id
-      );
+      const existingProduct = prevCart.find((item) => item.id === product.id);
 
       const productStock = getProductStock(product.id);
 
       if (existingProduct) {
         return prevCart.map((item) =>
-          item.id === product.id &&
-          item.quantity < productStock
+          item.id === product.id && item.quantity < productStock
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -102,9 +96,7 @@ export default function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const removeFromCart = (product: CartItem) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => !(item.id === product.id))
-    );
+    setCart((prevCart) => prevCart.filter((item) => !(item.id === product.id)));
   };
 
   const clearCart = () => {
@@ -116,8 +108,7 @@ export default function CartProvider({ children }: { children: ReactNode }) {
 
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === product.id &&
-        item.quantity < productStock
+        item.id === product.id && item.quantity < productStock
           ? { ...item, quantity: item.quantity + 1 }
           : item
       )
@@ -127,8 +118,7 @@ export default function CartProvider({ children }: { children: ReactNode }) {
   const decrementQuantity = (product: CartItem) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === product.id &&
-        item.quantity > 1
+        item.id === product.id && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item
       )
