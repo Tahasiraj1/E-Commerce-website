@@ -22,7 +22,7 @@ import { client } from "@/sanity/lib/client";
 import { Image as SanityImage } from "@sanity/types";
 import { CartItem } from "@/lib/CartContext";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { motion, AnimatePresence, delay } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { name: "HOME", link: "/" },
