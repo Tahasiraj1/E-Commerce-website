@@ -154,37 +154,39 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <div className="relative">
+      <div className="relative ml-0 md:ml-28">
         <h1 className="py-2 text-3xl lg:text-4xl font-bold px-5">
           You May Also Like
         </h1>
       </div>
       <div className="w-full px-5 pt-10 flex justify-center">
         <Carousel
-          className="w-full px-5"
+          className="w-full max-w-[1150px]"
           opts={{
             loop: true,
+            align: "start",
+            slidesToScroll: 1,
           }}
           plugins={[plugin.current]}
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
         >
-          <CarouselContent>
+          <CarouselContent className="mb-4 mx-[1px]">
             {scents.slice(0, 6).map((scent: Product, index: number) => (
               <CarouselItem
                 key={index}
-                className="flex flex-col w-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                className="pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
               >
                 <Card
                   key={index}
-                  className="border-[#0a1a32ff] w-[300px] bg-transparent/40 text-white shadow-cyan-400"
+                  className="border-[#0a1a32ff] bg-transparent/40 text-white shadow-cyan-400"
                 >
                   <Link href={`/scents/${scent.id}`}>
                     <Ripple>
                       <CardContent className="p-2">
                         <Image
                           alt={scent.name}
-                          className="w-full max-w-[300px] max-h-[400px] rounded-xl object-cover  "
+                          className="w-full aspect-[3/4] rounded-xl object-cover"
                           src={urlFor(scent.image[0]).url()}
                           width={1000}
                           height={1000}
@@ -200,9 +202,9 @@ const ProductDetails = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="absolute top-0 right-0 flex items-center justify-between">
-            <CarouselPrevious className="text-cyan-300 border-cyan-300 bg-transparent/40 rounded-full active:scale-95 transition-transform transform duration-300" />
-            <CarouselNext className="text-cyan-300 border-cyan-300 bg-transparent/40 rounded-full active:scale-95 transition-transform transform duration-300" />
+          <div className="absolute md:top-0 botton-0 right-0 flex items-center justify-between -translate-x-28 md:-translate-x-20 md:-translate-y-16 px-5 my-4 md:my-0">
+            <CarouselPrevious className="w-10 h-10 text-cyan-300 hover:text-cyan-300 border-cyan-300 bg-transparent/40 hover:bg-transparent/40 rounded-full active:scale-95 transition-transform transform duration-300" />
+            <CarouselNext className="w-10 h-10 text-cyan-300 hover:text-cyan-300 border-cyan-300 bg-transparent/40 hover:bg-transparent/40 rounded-full active:scale-95 transition-transform transform duration-300" />
           </div>
         </Carousel>
       </div>
