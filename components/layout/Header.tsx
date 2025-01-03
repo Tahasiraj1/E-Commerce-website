@@ -19,12 +19,12 @@ import { useCart } from "@/lib/CartContext";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { X } from "lucide-react";
-import { client } from "@/sanity/lib/client";
 import { Image as SanityImage } from "@sanity/types";
 import { CartItem } from "@/lib/CartContext";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOrder } from "@/lib/OrderContext";
+import { fetchProducts } from "@/app/api/route";
 
 const navItems = [
   { name: "HOME", link: "/" },
@@ -51,22 +51,7 @@ const Header = () => {
   const [scents, setScents] = useState<Product[]>([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const query = `*[_type == "scents"]{
-          id,
-          name,
-          quantity,
-          price,
-          image,
-          ratings,
-          tags,
-          description,
-        }`;
-
-      const products = await client.fetch(query);
-      setScents(products);
-    };
-    fetchProducts();
+    fetchProducts().then((data) => setScents(data));
   }, []);
 
   const handleRemoveFromCart = (item: CartItem) => {
@@ -207,7 +192,7 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="pt-20 border-r-0 border-t-0 border-b-0 border-l-2 border-cyan-400 bg-[#0a1a32ff]"
+              className="pt-20 border-r-0 border-t-0 border-b-0 border-l-2 text-white border-cyan-400 bg-[#0a1a32ff]"
             >
               <SheetHeader>
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>

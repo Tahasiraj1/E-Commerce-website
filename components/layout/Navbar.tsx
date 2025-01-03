@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { BorderBeam } from "../ui/border-beam";
 
 export const FloatingNav = ({
   navItems,
@@ -17,11 +18,12 @@ export const FloatingNav = ({
   return (
     <nav className={`sticky top-0 z-50 ${className}`}>
       <motion.div 
-        className="hidden md:flex max-w-fit fixed top-4 inset-x-0 mx-auto border-2 border-[#73ffedff] rounded-full bg-transparent/40 backdrop-blur-sm drop-shadow-2xl z-[5000] px-8 py-2 items-center justify-center space-x-4 overflow-hidden"
+        className="hidden md:flex max-w-fit fixed top-4 inset-x-0 mx-auto rounded-full bg-transparent/40 backdrop-blur-sm drop-shadow-2xl z-[5000] px-8 py-2 items-center justify-center space-x-4 overflow-hidden"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
+        <BorderBeam />
         {navItems.map((navItem, idx: number) => (
           <div key={`nav-item-${idx}`}>
             <Link
