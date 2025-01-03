@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import { client } from "@/sanity/lib/client";
 import { Image as SanityImage } from "@sanity/types";
 import { Ripple } from "./ui/Ripple";
 import Link from "next/link";
+import { fetchProducts } from "@/app/api/route";
 
 interface Product {
   id: string;
@@ -24,22 +24,7 @@ export default function Scents() {
   const [scents, setScents] = useState<Product[]>([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const query = `*[_type == "scents"]{
-        id,
-        name,
-        quantity,
-        price,
-        image,
-        ratings,
-        tags,
-        description,
-      }`;
-
-      const products = await client.fetch(query);
-      setScents(products);
-    };
-    fetchProducts();
+    fetchProducts().then((data) => setScents(data));
   }, []);
 
   return (

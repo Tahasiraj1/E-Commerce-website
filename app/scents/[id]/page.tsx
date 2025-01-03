@@ -19,12 +19,12 @@ import { TiStar } from "react-icons/ti";
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
-import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { Image as SanityImage } from "@sanity/types";
 import { Ripple } from "@/components/ui/Ripple";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Plus, Minus } from "lucide-react";
+import { fetchProducts } from "@/app/api/route";
 
 interface Product {
   id: string;
@@ -45,22 +45,7 @@ const ProductDetails = () => {
 
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const query = `*[_type == "scents"]{
-        id,
-        name,
-        quantity,
-        price,
-        image,
-        ratings,
-        tags,
-        description,
-      }`;
-
-      const products = await client.fetch(query);
-      setScents(products);
-    };
-    fetchProducts();
+    fetchProducts().then((data) => setScents(data));
   }, []);
 
   const plugin = React.useRef(

@@ -7,8 +7,8 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { client } from "@/sanity/lib/client";
 import { Image as SanityImage } from "@sanity/types";
+import { fetchProducts } from "@/app/api/route";
 
 export interface CartItem {
   image: SanityImage;
@@ -45,22 +45,7 @@ export default function CartProvider({ children }: { children: ReactNode }) {
   const [scents, setScents] = useState<Product[]>([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const query = `*[_type == "scents"]{
-        id,
-        name,
-        quantity,
-        price,
-        image,
-        ratings,
-        tags,
-        description,
-      }`;
-
-      const products = await client.fetch(query);
-      setScents(products);
-    };
-    fetchProducts();
+    fetchProducts().then((data) => setScents(data));
   }, []);
 
   useEffect(() => {
