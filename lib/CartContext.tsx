@@ -8,7 +8,6 @@ import {
   ReactNode,
 } from "react";
 import { Image as SanityImage } from "@sanity/types";
-import { fetchProducts } from "@/app/api/products/route";
 
 export interface CartItem {
   image: SanityImage;
@@ -43,9 +42,11 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export default function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [scents, setScents] = useState<Product[]>([]);
-
+  
   useEffect(() => {
-    fetchProducts().then((data) => setScents(data));
+    fetch("/api/products")
+      .then((res) => res.json())
+      .then((data) => setScents(data));
   }, []);
 
   useEffect(() => {

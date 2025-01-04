@@ -24,7 +24,7 @@ import { CartItem } from "@/lib/CartContext";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOrder } from "@/lib/OrderContext";
-import { fetchProducts } from "@/app/api/products/route";
+
 
 const navItems = [
   { name: "HOME", link: "/" },
@@ -50,8 +50,11 @@ const Header = () => {
   // const { isOpen, onOpen, onClose } = useSheet();
   const [scents, setScents] = useState<Product[]>([]);
 
+  
   useEffect(() => {
-    fetchProducts().then((data) => setScents(data));
+    fetch("/api/products")
+      .then((res) => res.json())
+      .then((data) => setScents(data));
   }, []);
 
   const handleRemoveFromCart = (item: CartItem) => {

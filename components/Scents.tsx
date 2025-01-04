@@ -7,7 +7,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { Image as SanityImage } from "@sanity/types";
 import { Ripple } from "./ui/Ripple";
 import Link from "next/link";
-import { fetchProducts } from "@/app/api/products/route";
+
 
 interface Product {
   id: string;
@@ -23,8 +23,11 @@ interface Product {
 export default function Scents() {
   const [scents, setScents] = useState<Product[]>([]);
 
+  
   useEffect(() => {
-    fetchProducts().then((data) => setScents(data));
+    fetch("/api/products")
+      .then((res) => res.json())
+      .then((data) => setScents(data));
   }, []);
 
   return (
