@@ -15,7 +15,7 @@ const FragranceFor = () => {
             className="w-[400px] h-[400px] object-cover"
           />
           <CardContent className="absolute inset-0 flex flex-col items-start justify-stitems-start text-white bg-black bg-opacity-50 hover:bg-transparent hover:bg-opacity-100 group-hover:translate-y-full transition-all duration-500 ease-in-out">
-            <h1 className="text-2xl font-bold mt-4">Fragrance For</h1>
+            <h1 className="text-2xl font-bold mt-4">Fragrance For Mens</h1>
             <p className="text-lg">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
               voluptates.
@@ -31,7 +31,7 @@ const FragranceFor = () => {
             className="w-[400px] h-[400px] object-cover"
           />
           <CardContent className="absolute inset-0 flex flex-col items-start justify-stitems-start text-white bg-black bg-opacity-50 hover:bg-transparent hover:bg-opacity-100 group-hover:translate-y-full transition-all duration-500 ease-in-out">
-            <h1 className="text-2xl font-bold mt-4">Fragrance For</h1>
+            <h1 className="text-2xl font-bold mt-4">Fragrances For Womens</h1>
             <p className="text-lg">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
               voluptates.
@@ -48,7 +48,7 @@ const FragranceFor = () => {
             className="w-[810px] h-[400px] object-cover"
           />
           <CardContent className="absolute inset-0 flex flex-col items-start justify-stitems-start text-white bg-black bg-opacity-50 hover:bg-transparent hover:bg-opacity-100 group-hover:translate-y-full transition-all duration-500 ease-in-out">
-            <h1 className="text-2xl font-bold mt-4">Fragrance For</h1>
+            <h1 className="text-2xl font-bold mt-4">Unisex Fragrances</h1>
             <p className="text-lg">
               Lorem ipsum dolor sit amet consectetur<br /> adipisicing elit. Quisquam,
               voluptates.
