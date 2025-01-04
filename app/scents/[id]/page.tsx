@@ -24,7 +24,7 @@ import { Image as SanityImage } from "@sanity/types";
 import { Ripple } from "@/components/ui/Ripple";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Plus, Minus } from "lucide-react";
-import { fetchProducts } from "@/app/api/route";
+
 
 interface Product {
   id: string;
@@ -45,7 +45,9 @@ const ProductDetails = () => {
 
 
   useEffect(() => {
-    fetchProducts().then((data) => setScents(data));
+    fetch("/api/products")
+      .then((res) => res.json())
+      .then((data) => setScents(data));
   }, []);
 
   const plugin = React.useRef(
