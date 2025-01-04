@@ -24,7 +24,7 @@ import { Image as SanityImage } from "@sanity/types";
 import { Ripple } from "@/components/ui/Ripple";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Plus, Minus } from "lucide-react";
-import { fetchProducts } from "@/app/api/route";
+import { fetchProducts } from "@/app/api/products/route";
 
 interface Product {
   id: string;

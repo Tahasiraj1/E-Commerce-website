@@ -8,7 +8,7 @@ import {
   ReactNode,
 } from "react";
 import { Image as SanityImage } from "@sanity/types";
-import fetchProducts from "@/app/api/route";
+import { fetchProducts } from "@/app/api/products/route";
 
 export interface CartItem {
   image: SanityImage;
