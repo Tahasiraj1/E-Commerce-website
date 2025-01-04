@@ -4,7 +4,9 @@ import Image from "next/image";
 
 const FragranceFor = () => {
   return (
-    <div className="flex flex-col items-center justify-center bg-[#0a1a32ff] gap-2 pb-10 px-4">
+    <div className="flex flex-col items-center justify-center bg-[#0a1a32ff] gap-2 pb-10 px-4"  
+    style={{ backgroundImage: `url('/SVG/Element.svg')`, backgroundPosition: '30% 100%', backgroundSize: 'cover' }}
+    >
       <div className="flex items-center justify-center w-full gap-2">
         <Card className="relative rounded-none overflow-hidden border-[#0a1a32ff] shadow-cyan-400 group cursor-pointer ">
           <Image
