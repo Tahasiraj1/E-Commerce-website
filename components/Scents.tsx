@@ -7,7 +7,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { Image as SanityImage } from "@sanity/types";
 import { Ripple } from "./ui/Ripple";
 import Link from "next/link";
-import { fetchProducts } from "@/app/api/route";
+import fetchProducts from "@/app/api/route";
 
 interface Product {
   id: string;

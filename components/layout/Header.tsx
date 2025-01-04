@@ -24,7 +24,7 @@ import { CartItem } from "@/lib/CartContext";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOrder } from "@/lib/OrderContext";
-import { fetchProducts } from "@/app/api/route";
+import fetchProducts from "@/app/api/route";
 
 const navItems = [
   { name: "HOME", link: "/" },
