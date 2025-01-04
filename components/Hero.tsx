@@ -20,7 +20,7 @@ const Hero = () => {
           elegance, leaving a lasting impression wherever you go. Explore your
           perfect match and let your essence speak volumes.
         </p>
-        <Button className="bg-[#73ffedff] hover:bg-cyan-300 text-black text-lg rounded-full w-[160px] h-[50px] ">
+        <Button className="bg-[#0a1a32ff] hover:bg-[#0a1a32ff] text-white text-lg font-bold border border-cyan-300 rounded-full w-[160px] h-[50px] ">
           EXPLORE NOW
         </Button>
       </div>

@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 
-export const fetchProducts = async () => {
+export default async function fetchProducts() {
   const query = `*[_type == "scents"]{
         id,
         name,
