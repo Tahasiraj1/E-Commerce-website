@@ -10,7 +10,7 @@ const Hero = () => {
     <div className="relative text-white bg-[#0a1a32ff] flex flex-col lg:flex-row items-center justify-between w-full max-w-[2000px] px-4 md:px-10 py-20 ">
 
       <div className="flex flex-col text-start w-full max-w-xl space-y-8 px-2">
-        <h2 className="text-6xl font-extrabold">
+        <h2 className="text-5xl md:text-6xl font-extrabold">
           Unveil Your
           <br /> Signature Scent<span className="text-[#73ffedff]">.</span>
         </h2>
