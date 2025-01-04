@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 
+
 const FragranceFor = () => {
   return (
     <div className="flex flex-col items-center justify-center bg-[#0a1a32ff] gap-2 pb-10 px-4"  
