@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useCart } from "@/lib/CartContext";
-import { ArrowLeft } from "lucide-react";
+// import { ArrowLeft } from "lucide-react";
 import { TiStar } from "react-icons/ti";
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
