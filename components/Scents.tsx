@@ -35,7 +35,7 @@ export default function Scents() {
         <motion.div
         key={scent.id}
         layoutId={`product-image-${scent.id}`}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
+        className="w-full"
         >
           <Card
             key={index}

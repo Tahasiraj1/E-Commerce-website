@@ -95,36 +95,36 @@ const ProductDetails = () => {
   const productId = params.id;
   const product = scents.find((product) => product.id === productId);
 
-  if (!product)
-    return (
-      <div className="h-screen bg-[#0a1a32ff] items-center flex flex-col gap-2 justify-center">
-        <p className="font-bold text-2xl text-red-500">Product not found</p>
-        <Link href="/scents">
-          <Button
-            variant="expandIcon"
-            iconPlacement="left"
-            Icon={ArrowLeft}
-            className="border gap-1 text-lg font-semibold text-white bg-black"
-          >
-            Back to Products page
-          </Button>
-        </Link>
-      </div>
-    );
+  // if (!product)
+  //   return (
+  //     <div className="h-screen bg-[#0a1a32ff] items-center flex flex-col gap-2 justify-center">
+  //       <p className="font-bold text-2xl text-red-500">Product not found</p>
+  //       <Link href="/scents">
+  //         <Button
+  //           variant="expandIcon"
+  //           iconPlacement="left"
+  //           Icon={ArrowLeft}
+  //           className="border gap-1 text-lg font-semibold text-white bg-black"
+  //         >
+  //           Back to Products page
+  //         </Button>
+  //       </Link>
+  //     </div>
+  //   );
 
   return (
     <div className=" bg-[#0a1a32ff] text-white">
       <div className="flex lg:flex-row flex-col pt-10 pb-20 px-4 lg:px-10">
         <ScrollArea className="drop-shadow-lg rounded-2xl">
           <motion.div
-            layoutId={`product-image-${product.id}`}
+            layoutId={`product-image-${product?.id}`}
             className="flex space-x-2"
           >
-            {product.image.map((image, index: number) => (
+            {product?.image.map((image, index: number) => (
               <Image
                 key={index}
                 src={urlFor(image).url()}
-                alt={`Image ${index + 1} of ${product.name}`}
+                alt={`Image ${index + 1} of ${product?.name}`}
                 width={1000}
                 height={1000}
                 className="w-[500px] h-[500px] object-cover rounded-2xl"
@@ -134,12 +134,12 @@ const ProductDetails = () => {
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
         <div className="flex flex-col justify-center lg:pl-20 pr-5 w-full max-w-2xl">
-          <h1 className="text-3xl mb-5 mt-5 font-bold">{product.name}</h1>
-          <p className="text-lg font-bold mb-5">PKR {product.price}</p>
+          <h1 className="text-3xl mb-5 mt-5 font-bold">{product?.name}</h1>
+          <p className="text-lg font-bold mb-5">PKR {product?.price}</p>
           <span className="flex mb-5">
-            <TiStar fill="orange" className="w-6 h-6 mr-2" /> {product.ratings}
+            <TiStar fill="orange" className="w-6 h-6 mr-2" /> {product?.ratings}
           </span>
-          <p>{product.description}</p>
+          <p>{product?.description}</p>
           <div className="flex items-center w-fit pl-2 mt-6 rounded-full">
             <span className="mr-2">Qty: </span>
             <Button
@@ -159,7 +159,7 @@ const ProductDetails = () => {
             </Button>
           </div>
           <div className="flex items-center justify-center mt-9 gap-2">
-            {product.quantity > 0 ? (
+            {(product?.quantity ?? 0) > 0 ? (
               <Button
                 variant="expandIcon"
                 Icon={RiShoppingCart2Line}
@@ -236,28 +236,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
-{
-  /* <p>{product.description}</p>
-{cart.map((item) => (
-  <div className="flex items-center w-fit pl-2 mt-6 rounded-full">
-    <span className="mr-2">Qty: </span>
-    <Button
-      className="bg-cyan-100 rounded-l-full text-black hover:bg-cyan-200 active:scale-110 transition-transform transform duration-300"
-      onClick={() => decrementQuantity(item)}
-    >
-      <Minus size={15} />
-    </Button>
-    <p className="mx-2 text-cyan-300">
-      <strong>{item.quantity}</strong>
-    </p>
-    <Button
-      className="bg-cyan-100 rounded-r-full text-black hover:bg-cyan-200 active:scale-110 transition-transform transform duration-300"
-      onClick={() => incrementQuantity(item)}
-    >
-      <Plus size={15} />
-    </Button>
-  </div>
-))}
-<div className="flex items-center justify-center mt-9 gap-2"> */
-}
