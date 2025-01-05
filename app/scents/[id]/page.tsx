@@ -118,7 +118,7 @@ const ProductDetails = () => {
         <ScrollArea className="drop-shadow-lg rounded-2xl">
           <motion.div
             layoutId={`product-image-${product?.id}`}
-            className="flex space-x-2"
+            className="flex space-x-2 w-[500px] h-[500px]"
           >
             {product?.image.map((image, index: number) => (
               <Image
