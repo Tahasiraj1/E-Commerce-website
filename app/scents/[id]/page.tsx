@@ -24,7 +24,7 @@ import { Image as SanityImage } from "@sanity/types";
 import { Ripple } from "@/components/ui/Ripple";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Plus, Minus } from "lucide-react";
-
+import { motion } from "framer-motion";
 
 interface Product {
   id: string;
@@ -42,7 +42,6 @@ const ProductDetails = () => {
   const { addToCart } = useCart();
   const [scents, setScents] = useState<Product[]>([]);
   const [quantity, setQuantity] = useState(1);
-
 
   useEffect(() => {
     fetch("/api/products")
@@ -105,7 +104,7 @@ const ProductDetails = () => {
             variant="expandIcon"
             iconPlacement="left"
             Icon={ArrowLeft}
-            className="border gap-1 text-lg font-semibold border-emerald-600 rounded-none bg-lime-100 hover:bg-emerald-700 text-black hover:text-white"
+            className="border gap-1 text-lg font-semibold text-white bg-black"
           >
             Back to Products page
           </Button>
@@ -117,7 +116,10 @@ const ProductDetails = () => {
     <div className=" bg-[#0a1a32ff] text-white">
       <div className="flex lg:flex-row flex-col pt-10 pb-20 px-4 lg:px-10">
         <ScrollArea className="drop-shadow-lg rounded-2xl">
-          <div className="flex space-x-2">
+          <motion.div
+            layoutId={`product-image-${product.id}`}
+            className="flex space-x-2"
+          >
             {product.image.map((image, index: number) => (
               <Image
                 key={index}
@@ -128,7 +130,7 @@ const ProductDetails = () => {
                 className="w-[500px] h-[500px] object-cover rounded-2xl"
               />
             ))}
-          </div>
+          </motion.div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
         <div className="flex flex-col justify-center lg:pl-20 pr-5 w-full max-w-2xl">
@@ -235,8 +237,8 @@ const ProductDetails = () => {
 
 export default ProductDetails;
 
-
-{/* <p>{product.description}</p>
+{
+  /* <p>{product.description}</p>
 {cart.map((item) => (
   <div className="flex items-center w-fit pl-2 mt-6 rounded-full">
     <span className="mr-2">Qty: </span>
@@ -257,4 +259,5 @@ export default ProductDetails;
     </Button>
   </div>
 ))}
-<div className="flex items-center justify-center mt-9 gap-2"> */}
+<div className="flex items-center justify-center mt-9 gap-2"> */
+}

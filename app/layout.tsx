@@ -7,6 +7,7 @@ import CartProvider from "@/lib/CartContext";
 import { Toaster } from "@/components/ui/toaster";
 import { OrderProvider } from "@/lib/OrderContext";
 import ConfettiDisplay from "@/components/layout/ConfettiDisplay";
+import { AnimatePresence } from "framer-motion";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,7 +39,7 @@ export default function RootLayout({
           <CartProvider>
             <Header />
             <ConfettiDisplay />
-            {children}
+            <AnimatePresence mode="wait">{children}</AnimatePresence>
             <Toaster />
             <Footer />
           </CartProvider>
