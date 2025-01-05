@@ -6,7 +6,7 @@ const fetchProducts = async () => {
       name,
       quantity,
       price,
-      image,
+      "image": image[].asset->url,
       ratings,
       tags,
       description,
